@@ -30,3 +30,7 @@ proguard/
 *.ipr
 *.iws
 .idea/
+
+*.classpath
+*.project
+*.jar
