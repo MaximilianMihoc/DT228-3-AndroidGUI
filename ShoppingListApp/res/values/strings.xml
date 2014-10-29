@@ -12,7 +12,9 @@
     <string name="emailHint">Enter email: E.g. name@dit.ie</string>
     <string name="ageTxtView">Enter your Age</string>
     <string name="totalTxtView">Enter Amount of money to spend</string>
-
+	<string name="noData">Sorry, No Data Available</string>
+	<string name="backButton">Back</string>
+	
     <string-array name="job_titles">
         <item>Choose Job Title</item>
         <item>Developer</item>
