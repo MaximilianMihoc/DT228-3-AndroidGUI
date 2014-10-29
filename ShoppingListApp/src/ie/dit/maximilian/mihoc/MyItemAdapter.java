@@ -34,8 +34,14 @@ public class MyItemAdapter extends ArrayAdapter<Item>
 		TextView itemName = (TextView)row.findViewById(R.id.itemName);
 		itemName.setText(list.get(position).getName());
 		
+		TextView itemPrice = (TextView)row.findViewById(R.id.itemPrice);
+		itemPrice.setText("€" + list.get(position).getPrice());
+		
 		ImageView icon = (ImageView)row.findViewById(R.id.icon);
-		icon.setImageResource(R.drawable.ic_launcher);
+		icon.setImageResource(list.get(position).getImageSrc());
+		
+		/*ImageView coin = (ImageView)row.findViewById(R.id.coins);
+		coin.setImageResource(R.drawable.coins);*/
 		
 		return row;
 	}
