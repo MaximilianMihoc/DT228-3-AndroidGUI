@@ -12,8 +12,7 @@
     <string name="emailHint">Enter email: E.g. name@dit.ie</string>
     <string name="ageTxtView">Enter your Age</string>
     <string name="totalTxtView">Enter Amount of money to spend</string>
-    
-    
+
     <string-array name="job_titles">
         <item>Choose Job Title</item>
         <item>Developer</item>
@@ -25,5 +24,10 @@
         <item>Housekeeping</item>
         <item>Programmer</item>
     </string-array>
+	<string name="nextButton">Go to next Page</string>
+    
+    
+    <string name="title_activity_second_screen">SecondScreenActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

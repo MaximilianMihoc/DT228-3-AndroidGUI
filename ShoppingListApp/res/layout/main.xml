@@ -99,4 +99,12 @@
         android:hint="@string/emailHint"
         android:inputType="textEmailAddress" />
 
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText2"
+        android:layout_marginTop="30dp"
+        android:text="@string/nextButton" />
+
 </RelativeLayout>

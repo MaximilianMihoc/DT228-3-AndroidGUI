@@ -1,21 +1,25 @@
 package ie.dit.maximilian.mihoc;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class MainActivity extends ActionBarActivity 
+public class MainActivity extends Activity 
 {
 	TextView title;
 	Spinner jobTitle;
 	EditText ageValue;
 	EditText totalValue;
+	Button next;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -35,6 +39,17 @@ public class MainActivity extends ActionBarActivity
 		ageValue.setGravity(Gravity.RIGHT);
 		totalValue = (EditText)findViewById(R.id.totalValue);
 		totalValue.setGravity(Gravity.RIGHT);
+		
+		next = (Button) findViewById(R.id.nextButton);
+		next.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MainActivity.this, SecondScreenActivity.class);
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override
