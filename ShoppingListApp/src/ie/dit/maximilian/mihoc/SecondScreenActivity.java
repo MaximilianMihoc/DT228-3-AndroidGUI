@@ -1,5 +1,8 @@
 package ie.dit.maximilian.mihoc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +11,7 @@ import android.view.MenuItem;
 public class SecondScreenActivity extends ListActivity 
 {
 	String[] list = {"bread", "pinaple"};
+	List<Item> itemList = new ArrayList<Item>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -15,7 +19,15 @@ public class SecondScreenActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.second);
 		
-		setListAdapter(new MyAdapter(this, R.layout.row, list));
+		Item i1 = new Item("bread", 12, "white");
+		Item i2 = new Item("mamaliga", 1.5f, "porumb");
+		Item i3 = new Item("bread", 12, "white");
+		
+		itemList.add(i1);
+		itemList.add(i2);
+		itemList.add(i3);
+		
+		setListAdapter(new MyItemAdapter(this, R.layout.row, itemList));
 	}
 
 	@Override
