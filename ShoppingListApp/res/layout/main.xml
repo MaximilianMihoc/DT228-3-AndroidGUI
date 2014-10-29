@@ -9,8 +9,94 @@
     tools:context="ie.dit.maximilian.mihoc.MainActivity" >
 
     <TextView
+        android:id="@+id/maintitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title" 
+        android:textStyle="bold"
+        android:typeface="serif"
+        android:textSize="25sp"/>
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/maintitle"
+        android:layout_marginTop="20dp"
+        android:inputType="textPersonName" 
+        android:hint="@string/nameHint"
+        />
+    
+    <RadioGroup
+            android:id="@+id/gender"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/name"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"  >
+
+        	<RadioButton
+                android:id="@+id/none"
+                android:text="@string/genderNone" />
+        	
+            <RadioButton
+                android:id="@+id/male"
+                android:text="@string/genderM" />
+
+            <RadioButton
+                android:id="@+id/female"
+                android:text="@string/genderF" />
+   	</RadioGroup>
+
+    <Spinner
+        android:id="@+id/jobTytle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gender" 
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/adeId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_below="@+id/jobTytle"
+        android:layout_marginTop="10dp"
+        android:text="@string/ageTxtView" />
+
+    <EditText
+        android:id="@+id/ageValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/adeId"
+        android:layout_below="@+id/jobTytle"
+        android:inputType="number" >
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/totalId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/adeId"
+        android:layout_marginTop="20dp"
+        android:text="@string/totalTxtView" />
+
+    <EditText
+        android:id="@+id/totalValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/totalId"
+        android:layout_below="@+id/adeId"
+        android:inputType="number" />
+    
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/totalId"
+        android:layout_marginTop="20dp"
+        android:hint="@string/emailHint"
+        android:inputType="textEmailAddress" />
 
 </RelativeLayout>
