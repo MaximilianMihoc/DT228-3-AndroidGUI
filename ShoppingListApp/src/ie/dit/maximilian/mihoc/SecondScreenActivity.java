@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ListActivity;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +23,18 @@ public class SecondScreenActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.second);
 		
-		populateItemList();
+		//populateItemList();
+		Resources res = getResources();
+		String[] tempStringArray = res.getStringArray(R.array.itemList);		
+		
+		for(int i = 0; i < tempStringArray.length; i++)
+		{
+			Item item = new Item();
+			String[] fields = tempStringArray[i].split("[\t ]");
+			item = setValuesFromArray(fields);
+			itemList.add(item);
+		}
+		
 		
 		setListAdapter(new MyItemAdapter(this, R.layout.row, itemList));
 	}
@@ -51,7 +64,36 @@ public class SecondScreenActivity extends ListActivity
 		Toast.makeText(this,  " You selected  " + itemList.get(position).getName() + "\nDesc: " + itemList.get(position).getDescription(), Toast.LENGTH_SHORT).show();
 	}
 	
-	public void populateItemList()
+	public Item setValuesFromArray(String[] fields)
+	{
+		Item tempItem = new Item(fields[1], Float.parseFloat(fields[2]), fields[3]);
+		
+		//Log.w("ShoppingListApp" ,s);
+		switch(fields[1])
+		{
+		case "Bread": tempItem.setImageSrc(R.drawable.bread);
+						break;
+		/*case "Italy": icon.setImageResource(R.drawable.italy);
+						break;
+		case "Spain": icon.setImageResource(R.drawable.spain);
+						break;
+		case "Poland": icon.setImageResource(R.drawable.poland);
+						break;
+		case "Romania": icon.setImageResource(R.drawable.romania);
+						break;
+		case "Germany": icon.setImageResource(R.drawable.germany);
+						break;
+		case "England": icon.setImageResource(R.drawable.uk);
+						break;*/
+		default: 	tempItem.setImageSrc(R.drawable.ic_launcher);
+					break;
+		}
+		
+		
+		return tempItem;
+	}
+	
+	/*public void populateItemList()
 	{
 		Item i1 = new Item("Bread", 12, "white", R.drawable.bread);
 		Item i2 = new Item("Corn", 1.5f, "100% natural", R.drawable.corn);
@@ -68,7 +110,7 @@ public class SecondScreenActivity extends ListActivity
 		Item i12 = new Item("pizza", 12, "Margherita", "");
 		Item i13 = new Item("pizza", 12, "Margherita", "");
 		*/
-		
+		/*
 		itemList.add(i1);
 		itemList.add(i2);
 		itemList.add(i3);
@@ -83,7 +125,7 @@ public class SecondScreenActivity extends ListActivity
 		itemList.add(i12);
 		itemList.add(i13);
 		*/
-		
+		/*
 		itemList.add(i1);
 		itemList.add(i2);
 		itemList.add(i3);
@@ -91,5 +133,5 @@ public class SecondScreenActivity extends ListActivity
 		itemList.add(i5);
 		itemList.add(i6);
 		itemList.add(i7);
-	}
+	}*/
 }

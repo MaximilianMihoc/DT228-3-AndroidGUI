@@ -15,6 +15,18 @@ public class Item
 		this.imageSrc = imageSrc;
 	}
 	
+	public Item(String name, float price, String desc)
+	{
+		this.name = name;
+		this.price = price;
+		this.description = desc;
+	}
+	
+	public Item()
+	{
+		
+	}
+	
 	public void setImageSrc(int src)
 	{
 		this.imageSrc = src;
