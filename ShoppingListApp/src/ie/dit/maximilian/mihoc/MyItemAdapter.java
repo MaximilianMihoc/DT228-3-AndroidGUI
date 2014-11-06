@@ -2,12 +2,15 @@ package ie.dit.maximilian.mihoc;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 public class MyItemAdapter extends ArrayAdapter<Item>
@@ -21,6 +24,7 @@ public class MyItemAdapter extends ArrayAdapter<Item>
 		this.list = items;
 	}
 	
+	@SuppressLint("NewApi")
 	@Override
     public View getView(int position, View convertView, ViewGroup parent)
 	{
@@ -40,8 +44,7 @@ public class MyItemAdapter extends ArrayAdapter<Item>
 		ImageView icon = (ImageView)row.findViewById(R.id.icon);
 		icon.setImageResource(list.get(position).getImageSrc());
 		
-		/*ImageView coin = (ImageView)row.findViewById(R.id.coins);
-		coin.setImageResource(R.drawable.coins);*/
+		//EditText qty = (EditText)row.findViewById(R.id.qty);	
 		
 		return row;
 	}

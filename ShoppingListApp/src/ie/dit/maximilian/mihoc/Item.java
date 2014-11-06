@@ -6,20 +6,23 @@ public class Item
 	private float price;
 	private String description;
 	private int imageSrc;
+	private int quantity; //number in stock
 	
-	public Item(String name, float price, String desc, int imageSrc)
+
+	/*public Item(String name, float price, String desc, int imageSrc)
 	{
 		this.name = name;
 		this.price = price;
 		this.description = desc;
 		this.imageSrc = imageSrc;
-	}
+	}*/
 	
-	public Item(String name, float price, String desc)
+	public Item(String name, float price, String desc, int quantity)
 	{
 		this.name = name;
 		this.price = price;
 		this.description = desc;
+		this.quantity = quantity;
 	}
 	
 	public Item()
@@ -65,6 +68,15 @@ public class Item
 	public String getDescription()
 	{
 		return description;
+	}
+	
+
+	public int getquantity() {
+		return quantity;
+	}
+
+	public void setquantity(int quantity) {
+		this.quantity = quantity;
 	}
 	
 }

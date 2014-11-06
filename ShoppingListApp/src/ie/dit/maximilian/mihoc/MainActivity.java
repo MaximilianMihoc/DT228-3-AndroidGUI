@@ -10,15 +10,19 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public class MainActivity extends Activity 
 {
 	TextView title;
+	TextView name;
+	RadioGroup gender;
 	Spinner jobTitle;
 	EditText ageValue;
 	EditText totalValue;
+	EditText email;
 	Button next;
 
 	@Override
@@ -30,6 +34,9 @@ public class MainActivity extends Activity
 		title = (TextView)findViewById(R.id.maintitle);
 		title.setGravity(Gravity.CENTER);
 		
+		name = (TextView)findViewById(R.id.name);
+		gender = (RadioGroup)findViewById(R.id.gender);
+		
 		jobTitle = (Spinner)findViewById(R.id.jobTytle);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.job_titles, android.R.layout.simple_spinner_dropdown_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -40,13 +47,19 @@ public class MainActivity extends Activity
 		totalValue = (EditText)findViewById(R.id.totalValue);
 		totalValue.setGravity(Gravity.RIGHT);
 		
+		email = (EditText)findViewById(R.id.emailId);
+		
 		next = (Button) findViewById(R.id.nextButton);
 		next.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
+			public void onClick(View v) 
+			{	
 				Intent intent = new Intent(MainActivity.this, SecondScreenActivity.class);
+				intent.putExtra("fullName", name.getText());
+				intent.putExtra("age", ageValue.getText());
+				intent.putExtra("totalValue", totalValue.getText());
+				intent.putExtra("email", email.getText());
 				startActivity(intent);
 			}
 		});

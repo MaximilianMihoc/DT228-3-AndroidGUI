@@ -57,7 +57,7 @@
         android:layout_marginTop="10dp" />
 
     <TextView
-        android:id="@+id/adeId"
+        android:id="@+id/ageId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/jobTytle"
@@ -68,7 +68,7 @@
         android:id="@+id/ageValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/adeId"
+        android:layout_toRightOf="@+id/ageId"
         android:layout_below="@+id/jobTytle"
         android:inputType="number" >
 
@@ -78,7 +78,7 @@
         android:id="@+id/totalId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/adeId"
+        android:layout_below="@+id/ageId"
         android:layout_marginTop="20dp"
         android:text="@string/totalTxtView" />
 
@@ -87,11 +87,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/totalId"
-        android:layout_below="@+id/adeId"
+        android:layout_below="@+id/ageId"
         android:inputType="number" />
     
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/emailId"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/totalId"
@@ -103,7 +103,7 @@
         android:id="@+id/nextButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/emailId"
         android:layout_marginTop="30dp"
         android:text="@string/nextButton" />
 

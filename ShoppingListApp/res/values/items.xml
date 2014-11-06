@@ -5,16 +5,43 @@
             <name>Bread</name>
             <price>12</price>
             <description>white</description>
+            <quantity>5</quantity>
         </item>
         <item>
-            <name>Bread</name>
+            <name>Corn</name>
             <price>12</price>
-            <description>white</description>
+            <description>100%natural</description>
+            <quantity>10</quantity>
         </item>
         <item>
-            <name>Bread</name>
+            <name>Pizza</name>
             <price>12</price>
-            <description>white</description>
+            <description>Margherita</description>
+            <quantity>10</quantity>
+        </item>
+        <item>
+            <name>Cheese</name>
+            <price>12</price>
+            <description>mexican</description>
+            <quantity>10</quantity>
+        </item>
+        <item>
+            <name>Cola</name>
+            <price>12</price>
+            <description>diet</description>
+            <quantity>10</quantity>
+        </item>
+        <item>
+            <name>Fanta</name>
+            <price>12</price>
+            <description>orange</description>
+            <quantity>10</quantity>
+        </item>
+        <item>
+            <name>Sprite</name>
+            <price>12</price>
+            <description>light</description>
+            <quantity>10</quantity>
         </item>
     </array>
 </resources>
