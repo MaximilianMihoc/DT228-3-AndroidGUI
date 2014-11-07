@@ -4,10 +4,16 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CheckedTextView;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
@@ -17,6 +23,9 @@ public class MyItemAdapter extends ArrayAdapter<Item>
 {
 	List<Item> list;
 	Context context;
+	CheckBox checkBox;
+	int pos;
+	
 	public MyItemAdapter(Context context, int resource, List<Item> items) 
 	{
 		super(context, resource, items);
@@ -33,6 +42,8 @@ public class MyItemAdapter extends ArrayAdapter<Item>
 		{
 			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
 			row = inflater.inflate(R.layout.row, parent, false);
+			
+			
 		}
 		
 		TextView itemName = (TextView)row.findViewById(R.id.itemName);
@@ -43,6 +54,10 @@ public class MyItemAdapter extends ArrayAdapter<Item>
 		
 		ImageView icon = (ImageView)row.findViewById(R.id.icon);
 		icon.setImageResource(list.get(position).getImageSrc());
+		
+		pos = position;
+		
+		checkBox = (CheckBox)row.findViewById(R.id.checkBox1);
 		
 		//EditText qty = (EditText)row.findViewById(R.id.qty);	
 		

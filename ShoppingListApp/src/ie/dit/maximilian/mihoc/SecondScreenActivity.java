@@ -4,20 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.NumberPicker;
-import android.widget.Toast;
 
 public class SecondScreenActivity extends ListActivity 
 {
 	List<Item> itemList = new ArrayList<Item>();
+	Button next;
+	ListView listView;
+	MyItemAdapter adapter;
+	
+	//ListView list2 ;
+	//String [] s = {"mama", "tata"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -32,6 +39,8 @@ public class SecondScreenActivity extends ListActivity
 		Resources res = getResources();
 		String[] tempStringArray = res.getStringArray(R.array.itemList);		
 		
+		listView = (ListView)findViewById(android.R.id.list);
+		
 		for(int i = 0; i < tempStringArray.length; i++)
 		{
 			Item item = new Item();
@@ -40,8 +49,49 @@ public class SecondScreenActivity extends ListActivity
 			itemList.add(item);
 		}
 		
+		//Log.w("importantList", itemList.get(0).getName());
 		
-		setListAdapter(new MyItemAdapter(this, R.layout.row, itemList));
+		adapter = new MyItemAdapter(this, R.layout.row, itemList);
+		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		listView.setAdapter(adapter);
+		//listView.setItemsCanFocus(false);
+		
+		//works for another list, can categorize
+		//list2 = (ListView)findViewById(R.id.list2);
+		//list2.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, s));
+		
+		next = (Button)findViewById(R.id.next);
+		next.setOnClickListener(new View.OnClickListener() 
+		{
+			
+			@Override
+			public void onClick(View v) 
+			{	
+				//reference
+				SparseBooleanArray checked = listView.getCheckedItemPositions();
+				Log.w("message", checked.toString());
+				ArrayList<Item> selectedItems = new ArrayList<Item>();
+				
+				for(int i = 0; i < checked.size(); i++)
+				{
+					int pos = checked.keyAt(i);
+					if(checked.valueAt(i))
+					{
+						selectedItems.add(adapter.getItem(pos));
+					}
+				}
+				//up to here
+				
+				Intent intent = new Intent(SecondScreenActivity.this, CheckOut.class);
+				
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("selectedItems", selectedItems);
+				
+				intent.putExtras(bundle);
+				
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override
@@ -66,7 +116,7 @@ public class SecondScreenActivity extends ListActivity
 	
 	protected void onListItemClick(ListView l, View v, int position, long id) 
 	{
-		Toast.makeText(this,  " You selected  " + itemList.get(position).getName() + "\nDesc: " + itemList.get(position).getDescription(), Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this,  " You selected  " + itemList.get(position).getName() + "\nDesc: " + itemList.get(position).getDescription(), Toast.LENGTH_SHORT).show();
 	}
 	
 	public Item setValuesFromArray(String[] fields)

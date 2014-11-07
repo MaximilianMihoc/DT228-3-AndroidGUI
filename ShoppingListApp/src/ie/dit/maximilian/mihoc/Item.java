@@ -1,9 +1,12 @@
 package ie.dit.maximilian.mihoc;
 
-public class Item 
+import java.io.Serializable;
+
+public class Item implements Serializable
 {
 	private String name;
 	private float price;
+	private boolean checked = false;
 	private String description;
 	private int imageSrc;
 	private int quantity; //number in stock
@@ -28,6 +31,14 @@ public class Item
 	public Item()
 	{
 		
+	}
+	
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 	
 	public void setImageSrc(int src)
