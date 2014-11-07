@@ -1,18 +1,44 @@
 package ie.dit.maximilian.mihoc;
 
-public class Item 
+import java.io.Serializable;
+
+public class Item implements Serializable
 {
 	private String name;
 	private float price;
+	private boolean checked = false;
 	private String description;
 	private int imageSrc;
+	private int quantity; //number in stock
 	
-	public Item(String name, float price, String desc, int imageSrc)
+
+	/*public Item(String name, float price, String desc, int imageSrc)
 	{
 		this.name = name;
 		this.price = price;
 		this.description = desc;
 		this.imageSrc = imageSrc;
+	}*/
+	
+	public Item(String name, float price, String desc, int quantity)
+	{
+		this.name = name;
+		this.price = price;
+		this.description = desc;
+		this.quantity = quantity;
+	}
+	
+	public Item()
+	{
+		
+	}
+	
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 	
 	public void setImageSrc(int src)
@@ -53,6 +79,15 @@ public class Item
 	public String getDescription()
 	{
 		return description;
+	}
+	
+
+	public int getquantity() {
+		return quantity;
+	}
+
+	public void setquantity(int quantity) {
+		this.quantity = quantity;
 	}
 	
 }
