@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class SecondScreenActivity extends ListActivity 
 {
@@ -22,6 +23,12 @@ public class SecondScreenActivity extends ListActivity
 	Button next;
 	ListView listView;
 	MyItemAdapter adapter;
+	float total = 0;
+	float budget;
+	String custName;
+	String budgetStr;
+	String ageStr;
+	String email;
 	
 	//ListView list2 ;
 	//String [] s = {"mama", "tata"};
@@ -32,8 +39,18 @@ public class SecondScreenActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.second);
 		
-		//get name from the other screen
-		String fullName = getIntent().getStringExtra("fullName");
+		//get detailes from the other screen
+		Bundle bundle = getIntent().getExtras();
+		custName = bundle.getString("fullName");
+		//ageStr = bundle.getString("age");
+		budgetStr = bundle.getString("totalValue");
+		email = bundle.getString("email");
+		
+		//parse age and budget in numbers
+		//int age = Integer.parseInt(ageStr);
+		budget = Float.parseFloat(budgetStr);
+		
+		this.getActionBar().setTitle("Welcome " + custName);
 		
 		//populateItemList();
 		Resources res = getResources();
@@ -49,7 +66,6 @@ public class SecondScreenActivity extends ListActivity
 			itemList.add(item);
 		}
 		
-		//Log.w("importantList", itemList.get(0).getName());
 		
 		adapter = new MyItemAdapter(this, R.layout.row, itemList);
 		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -84,12 +100,28 @@ public class SecondScreenActivity extends ListActivity
 				
 				Intent intent = new Intent(SecondScreenActivity.this, CheckOut.class);
 				
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("selectedItems", selectedItems);
+				//calculate total price for the selected items
+				for(Item item : selectedItems)
+				{
+					total += item.getPrice();
+				}
 				
-				intent.putExtras(bundle);
-				
-				startActivity(intent);
+				if((total + (total * 0.21)) >= budget)
+				{
+					Toast.makeText(SecondScreenActivity.this, "You Don't have enough money for all items selected. " +
+							"Please deselect some or increase the budget.", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("selectedItems", selectedItems);
+					intent.putExtras(bundle);
+					intent.putExtra("total", "" + total);
+					intent.putExtra("custName", custName);
+					intent.putExtra("email", email);
+					
+					startActivity(intent);
+				}
 			}
 		});
 	}
@@ -116,7 +148,7 @@ public class SecondScreenActivity extends ListActivity
 	
 	protected void onListItemClick(ListView l, View v, int position, long id) 
 	{
-		//Toast.makeText(this,  " You selected  " + itemList.get(position).getName() + "\nDesc: " + itemList.get(position).getDescription(), Toast.LENGTH_SHORT).show();
+		//itemList.get(position).setChecked(true);
 	}
 	
 	public Item setValuesFromArray(String[] fields)

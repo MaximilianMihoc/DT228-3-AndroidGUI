@@ -10,8 +10,13 @@ import android.widget.TextView;
 
 public class CheckOut extends ActionBarActivity 
 {
-	TextView itemName;
-	TextView itemPrice;
+	TextView itemDetailes;
+	//TextView itemPrice;
+	String custName;
+	String totalStr;
+	float total;
+	String email;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -19,20 +24,19 @@ public class CheckOut extends ActionBarActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.third);
 		
-		itemName = (TextView)findViewById(R.id.outputItemName);
-		//itemPrice = (TextView)findViewById(R.id.outputItemPrice);
-		
-		//Item[] selectedItems = (Item[]) getIntent().getSerializableExtra("selectedItems");
+		itemDetailes = (TextView)findViewById(R.id.outputItemName);
 		Bundle bunObject = getIntent().getExtras();
+		custName = bunObject.getString("custName");
+		
+		this.getActionBar().setTitle("Receipt for " + custName + ", Thank you");
 		
 		@SuppressWarnings("unchecked")
 		ArrayList<Item> items = (ArrayList<Item>)bunObject.getSerializable("selectedItems");
+		totalStr = bunObject.getString("total");
+		total = Float.parseFloat(totalStr);
+		email = bunObject.getString("email");
 		
-		//Item selectedItems = (Item)getIntent().getParcelableArrayExtra("selectedItems");
-		//itemName.setText(selectedItems[0].getName());
-		//itemPrice.setText("" + selectedItems[0].getPrice());
 		
-		//itemName.setText(items.get(0).getName());
 		
 		String results = "Name  Desc  Price\n";
 		for(int i = 0; i < items.size(); i ++)
@@ -42,7 +46,9 @@ public class CheckOut extends ActionBarActivity
 			results +="" + it.getName() + "    " + it.getDescription() + "    " + it.getPrice() + "\n";
 
 		}
-		itemName.setText(results);
+		results += "\nTotal    " + total + "\nVAT 21%      " + total * 0.21 + "\nTotal + VAT:    " + (total + (total * 0.21));
+		
+		itemDetailes.setText(results);
 		
 	}
 

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity 
 {
@@ -56,11 +57,41 @@ public class MainActivity extends Activity
 			public void onClick(View v) 
 			{	
 				Intent intent = new Intent(MainActivity.this, SecondScreenActivity.class);
-				intent.putExtra("fullName", name.getText());
-				intent.putExtra("age", ageValue.getText());
-				intent.putExtra("totalValue", totalValue.getText());
-				intent.putExtra("email", email.getText());
-				startActivity(intent);
+				
+				if(name.getText().toString().trim().length() <= 0)
+				{
+					Toast.makeText(MainActivity.this, "Please enter your name, " +
+							"This is a required field.", Toast.LENGTH_SHORT).show();
+				}
+				else if(ageValue.getText().toString().trim().length() <= 0)
+				{
+					Toast.makeText(MainActivity.this, "Please enter your age, " +
+							"This is a required field.", Toast.LENGTH_SHORT).show();
+				}
+				else if(totalValue.getText().toString().trim().length() <= 0)
+				{
+					Toast.makeText(MainActivity.this, "Please enter the abount of money you want to spend, " +
+							"This is a required field.", Toast.LENGTH_SHORT).show();
+				}
+				else if(email.getText().toString().trim().length() <= 0)
+				{
+					Toast.makeText(MainActivity.this, "Please enter your E-mail, " +
+							"This is a required field.", Toast.LENGTH_SHORT).show();
+				}
+				else if(!(email.getText().toString()).contains("@"))
+				{
+					Toast.makeText(MainActivity.this, "Invalid E-mail, " +
+							"Please enter a valid one.", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					intent.putExtra("fullName", name.getText().toString());
+					intent.putExtra("age", ageValue.getText().toString());
+					intent.putExtra("totalValue", totalValue.getText().toString());
+					intent.putExtra("email", email.getText().toString());
+					startActivity(intent);
+				}
+				
 			}
 		});
 	}

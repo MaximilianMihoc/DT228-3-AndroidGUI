@@ -58,6 +58,7 @@ public class MyItemAdapter extends ArrayAdapter<Item>
 		pos = position;
 		
 		checkBox = (CheckBox)row.findViewById(R.id.checkBox1);
+		//checkBox.setChecked(list.get(position).isChecked());
 		
 		//EditText qty = (EditText)row.findViewById(R.id.qty);	
 		
