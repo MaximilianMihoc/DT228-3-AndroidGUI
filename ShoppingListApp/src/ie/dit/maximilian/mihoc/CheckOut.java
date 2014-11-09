@@ -3,28 +3,31 @@ package ie.dit.maximilian.mihoc;
 import java.util.ArrayList;
 
 import android.support.v7.app.ActionBarActivity;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class CheckOut extends ActionBarActivity 
 {
-	TextView itemDetailes;
-	//TextView itemPrice;
 	String custName;
 	String totalStr;
 	float total;
 	String email;
 	
 	
+	@SuppressLint("CutPasteId")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.third);
 		
-		itemDetailes = (TextView)findViewById(R.id.outputItemName);
 		Bundle bunObject = getIntent().getExtras();
 		custName = bunObject.getString("custName");
 		
@@ -36,19 +39,43 @@ public class CheckOut extends ActionBarActivity
 		total = Float.parseFloat(totalStr);
 		email = bunObject.getString("email");
 		
+		//reference from http://stackoverflow.com/questions/6216547/android-dynamically-add-views-into-view
+		LayoutInflater ly = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		ViewGroup parent = (ViewGroup)findViewById(R.id.receiptView);
+		View view = ly.inflate(R.layout.receiptrow, parent);
+		//end reference
 		
+		TextView nameInReceipt = (TextView)view.findViewById(R.id.textLeft);
+		TextView descInReceipt = (TextView)view.findViewById(R.id.textCenter);
+		TextView priceInReceipt = (TextView)view.findViewById(R.id.textRight);
 		
-		String results = "Name  Desc  Price\n";
+		String names = "";
+		String descriptions = "";
+		String prices = "";
 		for(int i = 0; i < items.size(); i ++)
 		{
 			Item it = items.get(i);
 			
-			results +="" + it.getName() + "    " + it.getDescription() + "    " + it.getPrice() + "\n";
+			names += it.getName() + "\n";
+			descriptions += it.getDescription() + "\n";
+			prices += it.getPrice() + "\n";
+			
+			
 
 		}
-		results += "\nTotal    " + total + "\nVAT 21%      " + total * 0.21 + "\nTotal + VAT:    " + (total + (total * 0.21));
 		
-		itemDetailes.setText(results);
+		names += "\n\nSubtotal";
+		prices += "\n\n" + total;
+		names += "\nTaxes\\VAT";
+		prices += "\n" + (total * 0.21);
+		names += "\nTotal";
+		prices += "\n" + (total + (total * 0.21));
+		descriptions += "\n\n\n\n";
+		
+		nameInReceipt.setText(names);
+		descInReceipt.setText(descriptions);
+		priceInReceipt.setText(prices);
+		
 		
 	}
 

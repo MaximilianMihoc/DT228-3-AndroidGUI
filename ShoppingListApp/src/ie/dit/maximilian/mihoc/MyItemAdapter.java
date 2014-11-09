@@ -55,6 +55,9 @@ public class MyItemAdapter extends ArrayAdapter<Item>
 		ImageView icon = (ImageView)row.findViewById(R.id.icon);
 		icon.setImageResource(list.get(position).getImageSrc());
 		
+		TextView itemDesc = (TextView)row.findViewById(R.id.itemDescription);
+		itemDesc.setText(list.get(position).getDescription());
+		
 		pos = position;
 		
 		checkBox = (CheckBox)row.findViewById(R.id.checkBox1);
