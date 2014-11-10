@@ -5,13 +5,19 @@ import java.util.ArrayList;
 import android.support.v7.app.ActionBarActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CheckOut extends ActionBarActivity 
 {
@@ -19,7 +25,8 @@ public class CheckOut extends ActionBarActivity
 	String totalStr;
 	float total;
 	String email;
-	
+	Button send;
+	String textForEmail;
 	
 	@SuppressLint("CutPasteId")
 	@Override
@@ -52,6 +59,7 @@ public class CheckOut extends ActionBarActivity
 		String names = "";
 		String descriptions = "";
 		String prices = "";
+		textForEmail = "Hello " + custName + "\n" + "Here are your order detailes:\n";
 		for(int i = 0; i < items.size(); i ++)
 		{
 			Item it = items.get(i);
@@ -60,8 +68,7 @@ public class CheckOut extends ActionBarActivity
 			descriptions += it.getDescription() + "\n";
 			prices += it.getPrice() + "\n";
 			
-			
-
+			textForEmail += it.getName() + "\t\t\t" + it.getDescription() + "\t\t\t" + it.getPrice() + "\n";
 		}
 		
 		names += "\n\nSubtotal";
@@ -71,12 +78,22 @@ public class CheckOut extends ActionBarActivity
 		names += "\nTotal";
 		prices += "\n" + (total + (total * 0.21));
 		descriptions += "\n\n\n\n";
+		textForEmail += "\nSubtotal\t\t" + total + "\nTaxes\\VAT\t\t" + (total * 0.21) + "\nTotal\t\t" + (total + (total * 0.21));
 		
 		nameInReceipt.setText(names);
 		descInReceipt.setText(descriptions);
 		priceInReceipt.setText(prices);
 		
-		
+		send = (Button)findViewById(R.id.button1);
+		send.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) 
+			{
+				sendEmail();
+				
+			}
+		});
 	}
 
 	@Override
@@ -99,5 +116,31 @@ public class CheckOut extends ActionBarActivity
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	protected void sendEmail() 
+	{
+	      Log.i("Send email", "");
+
+	      String[] TO = {email};
+	      //String[] CC = {"mcmohd@gmail.com"};
+	      Intent emailIntent = new Intent(Intent.ACTION_SEND, Uri.fromParts("mailto","abc@gmail.com", null));
+	      emailIntent.setData(Uri.parse("mailto:"));
+	      emailIntent.setType("text/plain");
+
+
+	      emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+	      //emailIntent.putExtra(Intent.EXTRA_CC, CC);
+	      emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Shopping List");
+	      emailIntent.putExtra(Intent.EXTRA_TEXT, textForEmail);
+
+	      try {
+	         startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+	         finish();
+	         Log.i("Finished sending email...", "");
+	      } catch (android.content.ActivityNotFoundException ex) {
+	         Toast.makeText(CheckOut.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+	      } 
+		
 	}
 }

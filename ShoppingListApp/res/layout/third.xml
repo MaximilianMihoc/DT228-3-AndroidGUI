@@ -10,6 +10,16 @@
 	    android:background="#000000"
 	    android:id="@+id/receiptView"
 	    tools:context="ie.dit.maximilian.mihoc.CheckOut" >
+
+		<Button
+		    android:id="@+id/button1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_marginBottom="191dp"
+		    android:text="Send me an email" />
 		
 	</RelativeLayout>
+	
+	
 </ScrollView>

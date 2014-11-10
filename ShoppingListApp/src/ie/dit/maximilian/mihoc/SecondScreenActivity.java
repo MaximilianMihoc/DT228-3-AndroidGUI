@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -14,24 +15,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class SecondScreenActivity extends ListActivity 
+public class SecondScreenActivity extends ListActivity
 {
 	List<Item> itemList = new ArrayList<Item>();
 	Button next;
 	ListView listView;
+	TextView budgetView;
 	MyItemAdapter adapter;
-	float total = 0;
+	float total;
 	float budget;
 	String custName;
 	String budgetStr;
 	String ageStr;
 	String email;
 	
-	//ListView list2 ;
-	//String [] s = {"mama", "tata"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -70,11 +74,8 @@ public class SecondScreenActivity extends ListActivity
 		adapter = new MyItemAdapter(this, R.layout.row, itemList);
 		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		listView.setAdapter(adapter);
-		//listView.setItemsCanFocus(false);
-		
-		//works for another list, can categorize
-		//list2 = (ListView)findViewById(R.id.list2);
-		//list2.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, s));
+		budgetView = (TextView)findViewById(R.id.budget);
+		budgetView.setText("Your Budget is: " + budget);
 		
 		next = (Button)findViewById(R.id.next);
 		next.setOnClickListener(new View.OnClickListener() 
@@ -93,13 +94,13 @@ public class SecondScreenActivity extends ListActivity
 					int pos = checked.keyAt(i);
 					if(checked.valueAt(i))
 					{
-						selectedItems.add(adapter.getItem(pos));
+						selectedItems.add(itemList.get(pos));
 					}
 				}
 				//up to here
 				
 				Intent intent = new Intent(SecondScreenActivity.this, CheckOut.class);
-				
+				total = 0;
 				//calculate total price for the selected items
 				for(Item item : selectedItems)
 				{
@@ -145,17 +146,25 @@ public class SecondScreenActivity extends ListActivity
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
 	protected void onListItemClick(ListView l, View v, int position, long id) 
 	{
-		//itemList.get(position).setChecked(true);
+		if (!(itemList.get(position).isColor())) 
+		{
+			itemList.get(position).setColor(true);
+	        v.setBackgroundColor(Color.DKGRAY);
+	    } 
+		else 
+	    {
+	    	itemList.get(position).setColor(false);
+	        v.setBackgroundColor(Color.TRANSPARENT);
+	    }
 	}
 	
 	public Item setValuesFromArray(String[] fields)
 	{
 		//Log.w("ShoppingListApp" , "" + Integer.parseInt(fields[4]));
-		int quantity = Integer.parseInt(fields[4]);
-		Item tempItem = new Item(fields[1], Float.parseFloat(fields[2]), fields[3], quantity);
+		
+		Item tempItem = new Item(fields[1], Float.parseFloat(fields[2]), fields[3]);
 		
 		
 		switch(fields[1])

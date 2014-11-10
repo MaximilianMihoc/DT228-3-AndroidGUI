@@ -73,10 +73,11 @@
         android:id="@+id/ageValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/ageId"
+        
         android:layout_below="@+id/jobTytle"
+        android:layout_alignParentRight="true"
         android:inputType="number" 
-        android:ems="5" />
+        android:ems="4" />
 
 
     <TextView
@@ -91,7 +92,8 @@
         android:id="@+id/totalValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/totalId"
+        
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/ageId"
         android:ems="4"
         android:inputType="number" />

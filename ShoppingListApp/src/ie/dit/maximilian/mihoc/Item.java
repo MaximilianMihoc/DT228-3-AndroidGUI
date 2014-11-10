@@ -10,6 +10,7 @@ public class Item implements Serializable
 	private String description;
 	private int imageSrc;
 	private int quantity; //number in stock
+	private boolean color;
 	
 
 	/*public Item(String name, float price, String desc, int imageSrc)
@@ -20,12 +21,22 @@ public class Item implements Serializable
 		this.imageSrc = imageSrc;
 	}*/
 	
-	public Item(String name, float price, String desc, int quantity)
+	public boolean isColor() {
+		return color;
+	}
+
+	public void setColor(boolean color) {
+		this.color = color;
+	}
+
+	public Item(String name, float price, String desc)
 	{
 		this.name = name;
 		this.price = price;
 		this.description = desc;
-		this.quantity = quantity;
+		this.quantity = 0;
+		this.checked = false;
+		this.color = false;
 	}
 	
 	public Item()
@@ -82,11 +93,11 @@ public class Item implements Serializable
 	}
 	
 
-	public int getquantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setquantity(int quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 	
