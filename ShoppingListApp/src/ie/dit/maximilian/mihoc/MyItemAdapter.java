@@ -69,7 +69,23 @@ public class MyItemAdapter extends ArrayAdapter<Item>
 		qty.setTag(item);
 		item.setQuantity(item.getQuantity());
 		
-		
+		row.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) 
+			{
+				if (!(item.isColor())) 
+				{
+					item.setColor(true);
+			        v.setBackgroundColor(Color.DKGRAY);
+			    } 
+				else 
+			    {
+					item.setColor(false);
+			        v.setBackgroundColor(Color.TRANSPARENT);
+			    }
+			}
+		});
 		
 		return row;
 	}

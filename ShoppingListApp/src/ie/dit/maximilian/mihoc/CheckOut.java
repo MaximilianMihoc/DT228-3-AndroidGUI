@@ -66,7 +66,7 @@ public class CheckOut extends ActionBarActivity
 			
 			names += it.getName() + "\n";
 			descriptions += it.getDescription() + "\n";
-			prices += it.getPrice() + "\n";
+			prices += it.getQuantity() + " x " + it.getPrice() + "\n";
 			
 			textForEmail += it.getName() + "\t\t\t" + it.getDescription() + "\t\t\t" + it.getPrice() + "\n";
 		}
@@ -74,11 +74,11 @@ public class CheckOut extends ActionBarActivity
 		names += "\n\nSubtotal";
 		prices += "\n\n" + total;
 		names += "\nTaxes\\VAT";
-		prices += "\n" + (total * 0.21);
+		prices += "\n" + String.format("%.2f", (total * 0.21));
 		names += "\nTotal";
-		prices += "\n" + (total + (total * 0.21));
+		prices += "\n" + String.format("%.2f",(total + (total * 0.21)));
 		descriptions += "\n\n\n\n";
-		textForEmail += "\nSubtotal\t\t" + total + "\nTaxes\\VAT\t\t" + (total * 0.21) + "\nTotal\t\t" + (total + (total * 0.21));
+		textForEmail += "\nSubtotal\t\t" + total + "\nTaxes\\VAT\t\t" + String.format("%.2f", (total * 0.21)) + "\nTotal\t\t" + String.format("%.2f",(total + (total * 0.21)));
 		
 		nameInReceipt.setText(names);
 		descInReceipt.setText(descriptions);

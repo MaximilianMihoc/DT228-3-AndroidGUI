@@ -72,7 +72,7 @@ public class SecondScreenActivity extends ListActivity
 		
 		
 		adapter = new MyItemAdapter(this, R.layout.row, itemList);
-		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		//listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		listView.setAdapter(adapter);
 		budgetView = (TextView)findViewById(R.id.budget);
 		budgetView.setText("Your Budget is: " + budget);
@@ -85,16 +85,17 @@ public class SecondScreenActivity extends ListActivity
 			public void onClick(View v) 
 			{	
 				//reference
-				SparseBooleanArray checked = listView.getCheckedItemPositions();
-				Log.w("message", checked.toString());
+				//SparseBooleanArray checked = listView.getCheckedItemPositions();
+				//Log.w("message", checked.toString());
 				ArrayList<Item> selectedItems = new ArrayList<Item>();
 				
-				for(int i = 0; i < checked.size(); i++)
+				for(int i = 0; i < itemList.size(); i++)
 				{
-					int pos = checked.keyAt(i);
-					if(checked.valueAt(i))
+					//int pos = checked.keyAt(i);
+					Item item = itemList.get(i);
+					if(item.getQuantity() != 0)
 					{
-						selectedItems.add(itemList.get(pos));
+						selectedItems.add(item);
 					}
 				}
 				//up to here
@@ -104,7 +105,7 @@ public class SecondScreenActivity extends ListActivity
 				//calculate total price for the selected items
 				for(Item item : selectedItems)
 				{
-					total += item.getPrice();
+					total += item.getPrice() * item.getQuantity();
 				}
 				
 				if((total + (total * 0.21)) >= budget)
@@ -148,7 +149,7 @@ public class SecondScreenActivity extends ListActivity
 	}
 	protected void onListItemClick(ListView l, View v, int position, long id) 
 	{
-		if (!(itemList.get(position).isColor())) 
+		/*if (!(itemList.get(position).isColor())) 
 		{
 			itemList.get(position).setColor(true);
 	        v.setBackgroundColor(Color.DKGRAY);
@@ -157,7 +158,7 @@ public class SecondScreenActivity extends ListActivity
 	    {
 	    	itemList.get(position).setColor(false);
 	        v.setBackgroundColor(Color.TRANSPARENT);
-	    }
+	    }*/
 	}
 	
 	public Item setValuesFromArray(String[] fields)

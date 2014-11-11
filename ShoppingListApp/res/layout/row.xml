@@ -51,9 +51,8 @@
 	     android:layout_alignParentRight="true"
 	     android:layout_below="@+id/itemName"
 	     android:ems="3"
-	     android:focusable="false"
 	     android:inputType="number" 
-	     android:text="0">
+	     android:hint="Qty">
 
 	 </EditText>
 
