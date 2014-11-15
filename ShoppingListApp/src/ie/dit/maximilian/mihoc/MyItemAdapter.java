@@ -25,18 +25,21 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-public class MyItemAdapter extends ArrayAdapter<Item>
+public class MyItemAdapter extends ArrayAdapter<ItemInterface>
 {
-	List<Item> list;
+	List<ItemInterface> list;
 	Context context;
 	int pos;
 	Item item;
+	SectionItem sectionItem;
+	LayoutInflater inflater;
 	
-	public MyItemAdapter(Context context, int resource, List<Item> items) 
+	public MyItemAdapter(Context context, List<ItemInterface> items) 
 	{
-		super(context, resource, items);
+		super(context, 0, items);
 		this.context = context;
 		this.list = items;
+		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	
 	@SuppressLint("NewApi")
@@ -44,49 +47,70 @@ public class MyItemAdapter extends ArrayAdapter<Item>
     public View getView(int position, View convertView, ViewGroup parent)
 	{	
 		View row = convertView;
-		item = list.get(position);
-		if(row == null)
+		ItemInterface it = list.get(position);
+		if(it != null)
 		{
-			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
-			row = inflater.inflate(R.layout.row, parent, false);
-			EditText qty = (EditText)row.findViewById(R.id.qty);
-			qty.addTextChangedListener(new MyTextWatcher(row));
-		}
-		
-		TextView itemName = (TextView)row.findViewById(R.id.itemName);
-		itemName.setText(item.getName());
-		
-		TextView itemPrice = (TextView)row.findViewById(R.id.itemPrice);
-		itemPrice.setText("€" + item.getPrice());
-		
-		ImageView icon = (ImageView)row.findViewById(R.id.icon);
-		icon.setImageResource(item.getImageSrc());
-		
-		TextView itemDesc = (TextView)row.findViewById(R.id.itemDescription);
-		itemDesc.setText(item.getDescription());
-		
-		EditText qty = (EditText)row.findViewById(R.id.qty);
-		qty.setTag(item);
-		item.setQuantity(item.getQuantity());
-		
-		row.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) 
+			if(!it.isSection())
 			{
-				if (!(item.isColor())) 
-				{
-					item.setColor(true);
-			        v.setBackgroundColor(Color.DKGRAY);
-			    } 
-				else 
-			    {
-					item.setColor(false);
-			        v.setBackgroundColor(Color.TRANSPARENT);
-			    }
+				item = (Item) it;
+			 
+				row = inflater.inflate(R.layout.row, parent, false);
+				EditText qty = (EditText)row.findViewById(R.id.qty);
+				qty.addTextChangedListener(new MyTextWatcher(row));
+			
+				TextView itemName = (TextView)row.findViewById(R.id.itemName);
+				itemName.setText(item.getName());
+				
+				TextView itemPrice = (TextView)row.findViewById(R.id.itemPrice);
+				itemPrice.setText("€" + item.getPrice());
+				
+				ImageView icon = (ImageView)row.findViewById(R.id.icon);
+				icon.setImageResource(item.getImageSrc());
+				
+				TextView itemDesc = (TextView)row.findViewById(R.id.itemDescription);
+				itemDesc.setText(item.getDescription());
+				
+				//EditText qty = (EditText)row.findViewById(R.id.qty);
+				qty.setTag(item);
+				item.setQuantity(item.getQuantity());
+				
+				row.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) 
+					{
+						if (!(item.isColor())) 
+						{
+							item.setColor(true);
+					        v.setBackgroundColor(Color.DKGRAY);
+					    } 
+						else 
+					    {
+							item.setColor(false);
+					        v.setBackgroundColor(Color.TRANSPARENT);
+					    }
+					}
+				});
 			}
-		});
-		
+			else
+			{
+				sectionItem = (SectionItem) it;
+				row = inflater.inflate(R.layout.header, parent, false);
+				TextView section = (TextView)row.findViewById(R.id.list_header_title);
+				section.setText(sectionItem.getSectionName());
+			}
+		}
 		return row;
 	}
+	
+	/*@Override
+	public int getViewTypeCount()
+	{
+		return 10;
+	}
+	
+	@Override
+	public int getItemViewType(int position) {
+	    return IGNORE_ITEM_VIEW_TYPE;
+	}*/
 }

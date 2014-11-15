@@ -2,7 +2,7 @@ package ie.dit.maximilian.mihoc;
 
 import java.io.Serializable;
 
-public class Item implements Serializable
+public class Item implements Serializable, ItemInterface
 {
 	private String name;
 	private float price;
@@ -21,6 +21,10 @@ public class Item implements Serializable
 		this.imageSrc = imageSrc;
 	}*/
 	
+	public boolean isSection() {
+		return false;
+	}
+
 	public boolean isColor() {
 		return color;
 	}

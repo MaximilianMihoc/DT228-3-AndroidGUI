@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 public class SecondScreenActivity extends ListActivity
 {
-	List<Item> itemList = new ArrayList<Item>();
+	List<ItemInterface> itemList = new ArrayList<ItemInterface>();
 	Button next;
 	ListView listView;
 	TextView budgetView;
@@ -62,6 +62,9 @@ public class SecondScreenActivity extends ListActivity
 		
 		listView = (ListView)findViewById(android.R.id.list);
 		
+		//for checking, hard coded
+		itemList.add(new SectionItem("Section 1"));
+		
 		for(int i = 0; i < tempStringArray.length; i++)
 		{
 			Item item = new Item();
@@ -70,8 +73,10 @@ public class SecondScreenActivity extends ListActivity
 			itemList.add(item);
 		}
 		
+		//for checking, hard coded
+		itemList.add(new SectionItem("Section 2"));
 		
-		adapter = new MyItemAdapter(this, R.layout.row, itemList);
+		adapter = new MyItemAdapter(this, itemList);
 		//listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		listView.setAdapter(adapter);
 		budgetView = (TextView)findViewById(R.id.budget);
@@ -92,10 +97,13 @@ public class SecondScreenActivity extends ListActivity
 				for(int i = 0; i < itemList.size(); i++)
 				{
 					//int pos = checked.keyAt(i);
-					Item item = itemList.get(i);
-					if(item.getQuantity() != 0)
+					if(!itemList.get(i).isSection())
 					{
-						selectedItems.add(item);
+						Item item = (Item) itemList.get(i);
+						if(item.getQuantity() != 0)
+						{
+							selectedItems.add(item);
+						}
 					}
 				}
 				//up to here
