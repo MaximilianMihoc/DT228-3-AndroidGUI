@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,29 +59,23 @@ public class SecondScreenActivity extends ListActivity
 		
 		this.getActionBar().setTitle("Welcome " + custName);
 		
-		//populateItemList();
-		Resources res = getResources();
-		String[] tempStringArray = res.getStringArray(R.array.itemList);		
-		
 		listView = (ListView)findViewById(android.R.id.list);
 		
-		//for checking, hard coded
+		//populateItemList();
+		Resources res = getResources();
+		//Section 1
+		String[] tempStringArray = res.getStringArray(R.array.itemList);
 		itemList.add(new SectionItem("Section 1"));
+		parseXMLArrayInList(tempStringArray);
 		
-		for(int i = 0; i < tempStringArray.length; i++)
-		{
-			Item item = new Item();
-			String[] fields = tempStringArray[i].split("[\t ]");
-			item = setValuesFromArray(fields);
-			itemList.add(item);
-		}
-		
-		//for checking, hard coded
+		//Section 2
 		itemList.add(new SectionItem("Section 2"));
 		
 		adapter = new MyItemAdapter(this, itemList);
 		//listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		listView.setAdapter(adapter);
+		//listView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
+		
 		budgetView = (TextView)findViewById(R.id.budget);
 		budgetView.setText("Your Budget is: " + budget);
 		
@@ -157,46 +154,62 @@ public class SecondScreenActivity extends ListActivity
 	}
 	protected void onListItemClick(ListView l, View v, int position, long id) 
 	{
-		/*if (!(itemList.get(position).isColor())) 
+		/*if(!itemList.get(position).isSection())
 		{
-			itemList.get(position).setColor(true);
-	        v.setBackgroundColor(Color.DKGRAY);
-	    } 
-		else 
-	    {
-	    	itemList.get(position).setColor(false);
-	        v.setBackgroundColor(Color.TRANSPARENT);
-	    }*/
+			if (!(((Item) itemList.get(position)).isColor())) 
+			{
+				((Item) itemList.get(position)).setColor(true);
+		        v.setBackgroundColor(Color.DKGRAY);
+		    } 
+			else 
+		    {
+		    	((Item) itemList.get(position)).setColor(false);
+		        v.setBackgroundColor(Color.TRANSPARENT);
+		    }
+		}*/
 	}
 	
 	public Item setValuesFromArray(String[] fields)
 	{
-		//Log.w("ShoppingListApp" , "" + Integer.parseInt(fields[4]));
+		Log.w("ShoppingListApp: " , " " + fields[0] + " " + fields[1] + " "+ fields[2] + " "+ fields[3]);
 		
-		Item tempItem = new Item(fields[1], Float.parseFloat(fields[2]), fields[3]);
+		Item tempItem = new Item(fields[0], Float.parseFloat(fields[1]), fields[2]);
+		Log.w("Fieldb: " , fields[3]);
+		String file = fields[3].trim();
 		
-		
-		switch(fields[1])
-		{
-		case "Bread": tempItem.setImageSrc(R.drawable.bread);
-						break;
-		case "Corn": tempItem.setImageSrc(R.drawable.corn);
-						break;
-		case "Pizza": tempItem.setImageSrc(R.drawable.pizza);
-						break;
-		case "Cheese": tempItem.setImageSrc(R.drawable.cheese);
-						break;
-		case "Cola": tempItem.setImageSrc(R.drawable.diet_coke);
-						break;
-		case "Fanta": tempItem.setImageSrc(R.drawable.fanta);
-						break;
-		case "Sprite": tempItem.setImageSrc(R.drawable.sprite);
-						break;
-		default: 	tempItem.setImageSrc(R.drawable.ic_launcher);
-					break;
-		}
+		Context c = this;
+		int res = getResources().getIdentifier(file, "drawable", c.getPackageName());
+		tempItem.setImageSrc(res);
 		
 		return tempItem;
 	}
-
+	
+	public void parseXMLArrayInList(String[] tempStringArray)
+	{
+		for(int i = 0; i < tempStringArray.length; i++)
+		{
+			//have to do an xml parsing here
+			Item item = new Item();
+			//Log.w("list: " , tempStringArray[i].toString());
+			String line = tempStringArray[i].toString();
+			
+			int firstIndex = line.indexOf(" | ");
+			int secondIndex = line.indexOf(" | ", firstIndex + 3);
+			int thirdIndex = line.indexOf(" | ", secondIndex + 3);
+			
+			String s1 = line.substring(0, firstIndex);
+			String s2 = line.substring(firstIndex + 3, secondIndex);
+			String s3 = line.substring(secondIndex + 3, thirdIndex);
+			String s4 = line.substring(thirdIndex + 3, line.length());
+			
+			String[] fields = new String[4];
+			fields[0] = s1;
+			fields[1] = s2;
+			fields[2] = s3;
+			fields[3] = s4;
+			
+			item = setValuesFromArray(fields);
+			itemList.add(item);
+		}
+	}
 }

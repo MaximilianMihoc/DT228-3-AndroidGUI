@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Item implements Serializable, ItemInterface
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private float price;
 	private boolean checked = false;
@@ -21,6 +25,16 @@ public class Item implements Serializable, ItemInterface
 		this.imageSrc = imageSrc;
 	}*/
 	
+	public Item(String name, float price, String desc)
+	{
+		this.name = name;
+		this.price = price;
+		this.description = desc;
+		this.quantity = 0;
+		this.checked = false;
+		this.color = false;
+	}
+
 	public boolean isSection() {
 		return false;
 	}
@@ -31,16 +45,6 @@ public class Item implements Serializable, ItemInterface
 
 	public void setColor(boolean color) {
 		this.color = color;
-	}
-
-	public Item(String name, float price, String desc)
-	{
-		this.name = name;
-		this.price = price;
-		this.description = desc;
-		this.quantity = 0;
-		this.checked = false;
-		this.color = false;
 	}
 	
 	public Item()

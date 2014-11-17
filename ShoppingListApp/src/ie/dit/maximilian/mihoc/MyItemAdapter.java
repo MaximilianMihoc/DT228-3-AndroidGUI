@@ -53,11 +53,10 @@ public class MyItemAdapter extends ArrayAdapter<ItemInterface>
 			if(!it.isSection())
 			{
 				item = (Item) it;
-			 
+				
 				row = inflater.inflate(R.layout.row, parent, false);
-				EditText qty = (EditText)row.findViewById(R.id.qty);
-				qty.addTextChangedListener(new MyTextWatcher(row));
-			
+				
+				
 				TextView itemName = (TextView)row.findViewById(R.id.itemName);
 				itemName.setText(item.getName());
 				
@@ -66,13 +65,20 @@ public class MyItemAdapter extends ArrayAdapter<ItemInterface>
 				
 				ImageView icon = (ImageView)row.findViewById(R.id.icon);
 				icon.setImageResource(item.getImageSrc());
+				//icon.setImageDrawable(item.getImage());
 				
 				TextView itemDesc = (TextView)row.findViewById(R.id.itemDescription);
 				itemDesc.setText(item.getDescription());
 				
-				//EditText qty = (EditText)row.findViewById(R.id.qty);
+				TextView viewQty = (TextView)row.findViewById(R.id.viewQty);
+				viewQty.setText("Qty: " + item.getQuantity());
+				
+				EditText qty = (EditText)row.findViewById(R.id.qty);
+				qty.addTextChangedListener(new MyTextWatcher(row));
 				qty.setTag(item);
-				item.setQuantity(item.getQuantity());
+				//item.setQuantity(item.getQuantity());
+				
+				
 				
 				row.setOnClickListener(new View.OnClickListener() {
 					
@@ -91,6 +97,7 @@ public class MyItemAdapter extends ArrayAdapter<ItemInterface>
 					    }
 					}
 				});
+				
 			}
 			else
 			{
@@ -102,15 +109,4 @@ public class MyItemAdapter extends ArrayAdapter<ItemInterface>
 		}
 		return row;
 	}
-	
-	/*@Override
-	public int getViewTypeCount()
-	{
-		return 10;
-	}
-	
-	@Override
-	public int getItemViewType(int position) {
-	    return IGNORE_ITEM_VIEW_TYPE;
-	}*/
 }
