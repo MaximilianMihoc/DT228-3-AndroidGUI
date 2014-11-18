@@ -32,5 +32,7 @@
     <string name="title_activity_second_screen">SecondScreenActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_check_out">CheckOut</string>
+    <string name="qtyStr">Qty</string>
+    <string name="emailButton">Send Email</string>
 
 </resources>

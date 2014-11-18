@@ -53,11 +53,9 @@ public class CheckOut extends ActionBarActivity
 		//end reference
 		
 		TextView nameInReceipt = (TextView)view.findViewById(R.id.textLeft);
-		TextView descInReceipt = (TextView)view.findViewById(R.id.textCenter);
 		TextView priceInReceipt = (TextView)view.findViewById(R.id.textRight);
 		
 		String names = "";
-		String descriptions = "";
 		String prices = "";
 		textForEmail = "Hello " + custName + "\n" + "Here are your order detailes:\n";
 		for(int i = 0; i < items.size(); i ++)
@@ -65,32 +63,39 @@ public class CheckOut extends ActionBarActivity
 			Item it = items.get(i);
 			
 			names += it.getName() + "\n";
-			descriptions += it.getDescription() + "\n";
 			prices += it.getQuantity() + " x " + it.getPrice() + "\n";
 			
-			textForEmail += it.getName() + "\t\t\t" + it.getDescription() + "\t\t\t" + it.getPrice() + "\n";
+			textForEmail += it.getName() + "\t\t\t" + it.getDescription() + "\t\t\t€" + it.getQuantity() + " x " + it.getPrice() + "\n";
 		}
 		
 		names += "\n\nSubtotal";
-		prices += "\n\n" + total;
+		prices += "\n\n" + String.format("%.2f",(total));
 		names += "\nTaxes\\VAT";
 		prices += "\n" + String.format("%.2f", (total * 0.21));
 		names += "\nTotal";
 		prices += "\n" + String.format("%.2f",(total + (total * 0.21)));
-		descriptions += "\n\n\n\n";
-		textForEmail += "\nSubtotal\t\t" + total + "\nTaxes\\VAT\t\t" + String.format("%.2f", (total * 0.21)) + "\nTotal\t\t" + String.format("%.2f",(total + (total * 0.21)));
+		textForEmail += "\nSubtotal\t\t" + String.format("%.2f",(total)) + "\nTaxes\\VAT\t\t" + String.format("%.2f", (total * 0.21)) + "\nTotal\t\t" + String.format("%.2f",(total + (total * 0.21)));
 		
 		nameInReceipt.setText(names);
-		descInReceipt.setText(descriptions);
 		priceInReceipt.setText(prices);
 		
-		send = (Button)findViewById(R.id.button1);
+		send = (Button)findViewById(R.id.sendEmailButton);
 		send.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) 
 			{
 				sendEmail();
+				
+			}
+		});
+		
+		Button back = (Button)findViewById(R.id.backButtonReceipt);
+		back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
 				
 			}
 		});

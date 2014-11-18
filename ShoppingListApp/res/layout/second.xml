@@ -13,6 +13,7 @@
 		android:choiceMode="multipleChoice"
 		android:layout_below="@+id/budget"
 		android:layout_above="@+id/next"
+		android:transcriptMode="normal"
 		>
 	</ListView>
 	<TextView android:id="@android:id/empty" 

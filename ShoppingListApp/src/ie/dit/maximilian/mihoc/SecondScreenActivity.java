@@ -7,20 +7,12 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseBooleanArray;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,16 +52,25 @@ public class SecondScreenActivity extends ListActivity
 		this.getActionBar().setTitle("Welcome " + custName);
 		
 		listView = (ListView)findViewById(android.R.id.list);
+		//listView.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
 		
 		//populateItemList();
 		Resources res = getResources();
-		//Section 1
-		String[] tempStringArray = res.getStringArray(R.array.itemList);
-		itemList.add(new SectionItem("Section 1"));
+		//Pizza Section
+		String[] tempStringArray = res.getStringArray(R.array.pizza);
+		itemList.add(new SectionItem("Pizza"));
 		parseXMLArrayInList(tempStringArray);
 		
-		//Section 2
-		itemList.add(new SectionItem("Section 2"));
+		//Drinks Section
+		String[] tempStringArray2 = res.getStringArray(R.array.drinks);
+		itemList.add(new SectionItem("Drinks"));
+		parseXMLArrayInList(tempStringArray2);
+		
+		//Alcoholic Drinks Section
+		String[] tempStringArray3 = res.getStringArray(R.array.alcoholicDrinks);
+		itemList.add(new SectionItem("Alcoholic Drinks"));
+		parseXMLArrayInList(tempStringArray3);
+		
 		
 		adapter = new MyItemAdapter(this, itemList);
 		//listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -173,7 +174,7 @@ public class SecondScreenActivity extends ListActivity
 	{
 		Log.w("ShoppingListApp: " , " " + fields[0] + " " + fields[1] + " "+ fields[2] + " "+ fields[3]);
 		
-		Item tempItem = new Item(fields[0], Float.parseFloat(fields[1]), fields[2]);
+		Item tempItem = new Item(fields[0].trim(), Float.parseFloat(fields[1]), fields[2]);
 		Log.w("Fieldb: " , fields[3]);
 		String file = fields[3].trim();
 		

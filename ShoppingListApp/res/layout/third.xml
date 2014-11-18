@@ -12,13 +12,19 @@
 	    tools:context="ie.dit.maximilian.mihoc.CheckOut" >
 
 		<Button
-		    android:id="@+id/button1"
-		    android:layout_width="wrap_content"
+		    android:id="@+id/sendEmailButton"
+		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
-		    android:layout_alignParentBottom="true"
-		    android:layout_marginBottom="191dp"
-		    android:text="Send me an email" />
+		    android:layout_alignParentBottom="true" 
+		    android:paddingBottom="30dp"
+		    android:text="@string/emailButton" />
 		
+		<Button
+		    android:id="@+id/backButtonReceipt"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_above="@+id/sendEmailButton"
+		    android:text="@string/backButton" />
 	</RelativeLayout>
 	
 	

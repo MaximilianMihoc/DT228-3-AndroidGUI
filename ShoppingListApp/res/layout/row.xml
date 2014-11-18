@@ -9,6 +9,7 @@
 		 android:layout_width="100dp"
 		 android:layout_height="100dp"
 		 android:paddingLeft="20dp"
+		 android:layout_centerVertical="true"
 		 />
 	 
 	 <TextView
@@ -28,8 +29,8 @@
 		 android:layout_height="wrap_content"
 		 android:textColor="#C61700"
 		 android:paddingTop="10dp"
-		 android:paddingRight="30dp"
-		 android:layout_toLeftOf="@+id/qty"
+		 android:layout_above= "@+id/qty"
+		 android:layout_toRightOf="@+id/itemDescription"
 		 android:textSize="15sp"
 		 />
 	 
@@ -53,7 +54,7 @@
 	     android:layout_below="@+id/itemName"
 	     android:ems="3"
 	     android:inputType="number" 
-	     android:hint="Qty">
+	     android:hint="@string/qtyStr">
 	 </EditText>
 
 	 <TextView

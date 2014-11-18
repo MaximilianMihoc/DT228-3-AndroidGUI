@@ -13,25 +13,19 @@
         android:id="@+id/textLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:paddingLeft="50dp"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="28dp"
         />
 
-    <TextView
-        android:id="@+id/textCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textLeft"
-        android:layout_centerHorizontal="true"
-         />
 
     <TextView
         android:id="@+id/textRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textCenter"
+        android:layout_alignTop="@+id/textLeft"
+        android:paddingRight="50dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="18dp"
          />
