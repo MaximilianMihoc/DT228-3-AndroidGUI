@@ -2,14 +2,19 @@ package ie.dit.maximilian.mihoc;
 
 import java.io.Serializable;
 
-public class Item implements Serializable
+public class Item implements Serializable, ItemInterface
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private float price;
 	private boolean checked = false;
 	private String description;
 	private int imageSrc;
 	private int quantity; //number in stock
+	private boolean color;
 	
 
 	/*public Item(String name, float price, String desc, int imageSrc)
@@ -20,12 +25,26 @@ public class Item implements Serializable
 		this.imageSrc = imageSrc;
 	}*/
 	
-	public Item(String name, float price, String desc, int quantity)
+	public Item(String name, float price, String desc)
 	{
 		this.name = name;
 		this.price = price;
 		this.description = desc;
-		this.quantity = quantity;
+		this.quantity = 0;
+		this.checked = false;
+		this.color = false;
+	}
+
+	public boolean isSection() {
+		return false;
+	}
+
+	public boolean isColor() {
+		return color;
+	}
+
+	public void setColor(boolean color) {
+		this.color = color;
 	}
 	
 	public Item()
@@ -82,11 +101,11 @@ public class Item implements Serializable
 	}
 	
 
-	public int getquantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setquantity(int quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 	

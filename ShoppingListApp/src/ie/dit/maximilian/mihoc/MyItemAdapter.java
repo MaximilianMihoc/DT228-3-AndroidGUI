@@ -4,63 +4,78 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CheckedTextView;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 
-public class MyItemAdapter extends ArrayAdapter<Item>
+public class MyItemAdapter extends ArrayAdapter<ItemInterface>
 {
-	List<Item> list;
+	List<ItemInterface> list;
 	Context context;
-	CheckBox checkBox;
 	int pos;
+	Item item;
+	SectionItem sectionItem;
+	LayoutInflater inflater;
 	
-	public MyItemAdapter(Context context, int resource, List<Item> items) 
+	public MyItemAdapter(Context context, List<ItemInterface> items) 
 	{
-		super(context, resource, items);
+		super(context, 0, items);
 		this.context = context;
 		this.list = items;
+		
 	}
 	
 	@SuppressLint("NewApi")
 	@Override
     public View getView(int position, View convertView, ViewGroup parent)
-	{
+	{	
 		View row = convertView;
-		if(row == null)
+		ItemInterface it = list.get(position);
+		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		if(it != null)
 		{
-			LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
-			row = inflater.inflate(R.layout.row, parent, false);
-			
-			
+			if(!it.isSection())
+			{
+				item = (Item) it;
+				
+				row = inflater.inflate(R.layout.row, parent, false);
+				
+				
+				TextView itemName = (TextView)row.findViewById(R.id.itemName);
+				itemName.setText(item.getName());
+				
+				TextView itemPrice = (TextView)row.findViewById(R.id.itemPrice);
+				itemPrice.setText("€" + item.getPrice());
+				
+				ImageView icon = (ImageView)row.findViewById(R.id.icon);
+				icon.setImageResource(item.getImageSrc());
+				//icon.setImageDrawable(item.getImage());
+				
+				TextView itemDesc = (TextView)row.findViewById(R.id.itemDescription);
+				itemDesc.setText(item.getDescription());
+				
+				TextView viewQty = (TextView)row.findViewById(R.id.viewQty);
+				viewQty.setText("Qty: " + item.getQuantity());
+				
+				EditText qty = (EditText)row.findViewById(R.id.qty);
+				qty.addTextChangedListener(new MyTextWatcher(row));
+				qty.setTag(item);
+				//item.setQuantity(item.getQuantity());
+				
+				
+			}
+			else
+			{
+				sectionItem = (SectionItem) it;
+				row = inflater.inflate(R.layout.header, parent, false);
+				TextView section = (TextView)row.findViewById(R.id.list_header_title);
+				section.setText(sectionItem.getSectionName());
+			}
 		}
-		
-		TextView itemName = (TextView)row.findViewById(R.id.itemName);
-		itemName.setText(list.get(position).getName());
-		
-		TextView itemPrice = (TextView)row.findViewById(R.id.itemPrice);
-		itemPrice.setText("€" + list.get(position).getPrice());
-		
-		ImageView icon = (ImageView)row.findViewById(R.id.icon);
-		icon.setImageResource(list.get(position).getImageSrc());
-		
-		pos = position;
-		
-		checkBox = (CheckBox)row.findViewById(R.id.checkBox1);
-		
-		//EditText qty = (EditText)row.findViewById(R.id.qty);	
-		
 		return row;
 	}
 }
