@@ -20,6 +20,7 @@ public class MyItemAdapter extends ArrayAdapter<ItemInterface>
 	Item item;
 	SectionItem sectionItem;
 	LayoutInflater inflater;
+	EditText qty;
 	
 	public MyItemAdapter(Context context, List<ItemInterface> items) 
 	{
@@ -63,10 +64,9 @@ public class MyItemAdapter extends ArrayAdapter<ItemInterface>
 				TextView viewQty = (TextView)row.findViewById(R.id.viewQty);
 				viewQty.setText("Qty: " + item.getQuantity());
 				
-				EditText qty = (EditText)row.findViewById(R.id.qty);
+				qty = (EditText)row.findViewById(R.id.qty);
 				qty.addTextChangedListener(new MyTextWatcher(row));
 				qty.setTag(item);
-				
 				
 			}
 			else
