@@ -98,7 +98,6 @@ public class SecondScreenActivity extends ListActivity
 						}
 					}
 				}
-				//up to here
 				
 				Intent intent = new Intent(SecondScreenActivity.this, CheckOut.class);
 				total = 0;
