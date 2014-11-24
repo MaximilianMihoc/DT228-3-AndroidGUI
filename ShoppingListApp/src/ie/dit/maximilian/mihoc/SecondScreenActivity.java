@@ -73,9 +73,7 @@ public class SecondScreenActivity extends ListActivity
 		
 		
 		adapter = new MyItemAdapter(this, itemList);
-		//listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		listView.setAdapter(adapter);
-		//listView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
 		
 		budgetView = (TextView)findViewById(R.id.budget);
 		budgetView.setText("Your Budget is: " + budget);
@@ -87,14 +85,10 @@ public class SecondScreenActivity extends ListActivity
 			@Override
 			public void onClick(View v) 
 			{	
-				//reference
-				//SparseBooleanArray checked = listView.getCheckedItemPositions();
-				//Log.w("message", checked.toString());
 				ArrayList<Item> selectedItems = new ArrayList<Item>();
 				
 				for(int i = 0; i < itemList.size(); i++)
 				{
-					//int pos = checked.keyAt(i);
 					if(!itemList.get(i).isSection())
 					{
 						Item item = (Item) itemList.get(i);

@@ -33,6 +33,8 @@ public class MyItemAdapter extends ArrayAdapter<ItemInterface>
 	@Override
     public View getView(int position, View convertView, ViewGroup parent)
 	{	
+		//Reference: The idea about how to group elements with sections is from http://bartinger.at/listview-with-sectionsseparators/
+		//Reference complete
 		View row = convertView;
 		ItemInterface it = list.get(position);
 		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -64,7 +66,6 @@ public class MyItemAdapter extends ArrayAdapter<ItemInterface>
 				EditText qty = (EditText)row.findViewById(R.id.qty);
 				qty.addTextChangedListener(new MyTextWatcher(row));
 				qty.setTag(item);
-				//item.setQuantity(item.getQuantity());
 				
 				
 			}
