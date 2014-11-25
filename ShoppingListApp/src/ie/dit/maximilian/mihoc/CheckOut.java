@@ -46,11 +46,11 @@ public class CheckOut extends ActionBarActivity
 		total = Float.parseFloat(totalStr);
 		email = bunObject.getString("email");
 		
-		//reference from http://stackoverflow.com/questions/6216547/android-dynamically-add-views-into-view
+		//Reference: The following code is from http://stackoverflow.com/questions/6216547/android-dynamically-add-views-into-view
 		LayoutInflater ly = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		ViewGroup parent = (ViewGroup)findViewById(R.id.receiptView);
 		View view = ly.inflate(R.layout.receiptrow, parent);
-		//end reference
+		//Reference complete
 		
 		TextView nameInReceipt = (TextView)view.findViewById(R.id.textLeft);
 		TextView priceInReceipt = (TextView)view.findViewById(R.id.textRight);
@@ -125,6 +125,8 @@ public class CheckOut extends ActionBarActivity
 	
 	protected void sendEmail() 
 	{
+		//Reference: The following code is from 
+		//	http://www.tutorialspoint.com/android/android_sending_email.htm
 	      Log.i("Send email", "");
 
 	      String[] TO = {email};
@@ -146,6 +148,7 @@ public class CheckOut extends ActionBarActivity
 	      } catch (android.content.ActivityNotFoundException ex) {
 	         Toast.makeText(CheckOut.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
 	      } 
+	     //Reference complete
 		
 	}
 }
